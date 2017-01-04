@@ -1,26 +1,31 @@
-from flask import Flask
+# -*- coding: utf-8 -*-
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from flask_admin import BaseView, expose
-from flask_admin.base import MenuLink, Admin, BaseView, expose
-from database import db, app, ApplicationDetails, ApplicationTagData, MethodDescription, Customers
+from flask_admin.base import MenuLink
+from .database import (db, app, ApplicationDetails, ApplicationTagData,
+                       MethodDescription, Customers)
+
 
 class PriceView(ModelView):
     column_searchable_list = (['application_tag'])
     column_default_sort = 'date_valid_from'
     column_filters = (['application_tag'])
 
+
 class MethodDescriptionView(ModelView):
     column_list = ('method', 'version', 'method_nr', 'information', 'limitations')
     column_searchable_list = (['method', 'method_nr'])
 
+
 class CustView(ModelView):
     column_searchable_list = (['customer_name', 'customer_number'])
+
 
 class AppTagView(ModelView):
     #column_list = ('application_tag', 'created_at', 'minimum_order', )
     column_searchable_list = (['application_tag'])
     column_default_sort = 'application_tag'
+
 
 # Flask views
 @app.route('/')
@@ -49,13 +54,5 @@ def main():
     app.run(debug=True)
 
 
-
-
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
